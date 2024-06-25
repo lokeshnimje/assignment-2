@@ -5,6 +5,9 @@ const app = express()
 app.get('/allProducts', (req, res) => {
     res.json(products)
 })
-app.listen(3000, () => {
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+    console.log(port);
     console.log('server is listening');
 })
