@@ -13,11 +13,25 @@ const Products = () => {
     setShowCartPage,
   } = useContext(ProdContext);
 
+  const url = "https://my-ecommerce-products.vercel.app/allProducts"
   useEffect(() => {
-    const temp = 
-    productList &&
-      productList.map((el) => ({ ...el, count: 0 }))
-    setAllProducts(temp);
+    const fetchData = async () => {
+      try{
+        const response = await fetch(url)
+        if(!response.ok){
+          throw new Error ('Error in network response!')
+        }
+        const result = await response.json()
+        const temp = 
+        result &&
+        result.map((el) => ({ ...el, count: 0 }))
+        setAllProducts(temp);
+      }catch(err){
+        console.log("Error", err);
+      }
+    }
+    fetchData()
+
   }, [setAllProducts]);
 
   return (
